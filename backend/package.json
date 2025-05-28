@@ -1,0 +1,20 @@
+{
+  "name": "real-sns-udemy",
+  "version": "1.0.0",
+  "description": "real-sns",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "\"Itsuki\"",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.13.2",
+    "multer": "^1.4.5-lts.2",
+    "nodemon": "^3.1.9"
+  }
+}
