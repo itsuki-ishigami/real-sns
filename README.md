@@ -12,7 +12,9 @@ REAL-SNS
 
 1. リポジトリをクローン
 
+```bash
 git clone https://github.com/itsuki-ishigami/real-sns.git
+```
 
 2. バックエンドのセットアップ
 
