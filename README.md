@@ -21,7 +21,7 @@ npm install
 
 .envファイルを作成
 
-MONGOURL = mongodb+srv://itsuki:I0727r0719@cluster0.pvezj93.mongodb.net/reaisns?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URL=<your_mongodb_connection_string>
 
 サーバー起動
 
