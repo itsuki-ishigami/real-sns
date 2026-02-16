@@ -12,12 +12,14 @@ REAL-SNS
 
 1. リポジトリをクローン
 
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/itsuki-ishigami/real-sns.git
 
 2. バックエンドのセットアップ
 
+```bash
 cd backend
 npm install
+```
 
 .envファイルを作成
 
@@ -29,8 +31,10 @@ npm run dev
 
 3. フロントエンドのセットアップ
 
+```bash
 cd ../frontend
 npm install
+```
 
 .envファイルを作成
 
