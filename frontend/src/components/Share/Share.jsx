@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from 'react';
 import "./Share.css";
 import { Analytics, Face, Gif, Image } from '@mui/icons-material';
-import { AuthContext } from '../../state/AuthContext';
+import { AuthContext } from '../../state/AuthContext.jsx';
 import axios from 'axios';
 
 export default function Share() {
-    const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const desc = useRef();
 

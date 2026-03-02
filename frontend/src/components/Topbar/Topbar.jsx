@@ -2,11 +2,11 @@ import { Chat, Notifications, Search } from '@mui/icons-material';
 import React, { useContext } from 'react';
 import "./Topbar.css";
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../state/AuthContext';
+import { AuthContext } from '../../state/AuthContext.jsx';
 
 export default function Topbar() {
     const { user } = useContext(AuthContext);
-    const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
   return ( 
   <div className="topbarContainer">
     <div className="topbarLeft">

@@ -4,10 +4,11 @@ const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postsRoute = require("./routes/posts");
 const uploadRoute = require("./routes/upload");
-const PORT = 5000;
 const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config();
+
+const PORT = process.env.PORT || 5000;
 
 //データベース接続
 mongoose.connect(

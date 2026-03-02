@@ -5,10 +5,10 @@ import { MoreVert } from '@mui/icons-material';
 import axios from 'axios';
 import { format } from "timeago.js";
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../state/AuthContext';
+import { AuthContext } from '../../state/AuthContext.jsx';
 
 export default function Post({ post }) {
-  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
 
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);

@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+# REAL-SNS Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React + Vite で構築されたSNSアプリケーションのフロントエンド
 
-## Available Scripts
+## 技術スタック
 
-In the project directory, you can run:
+- React 19
+- Vite 7
+- React Router DOM
+- Axios
+- Material-UI（アイコン）
+- Emotion（スタイリング）
 
-### `npm start`
+## セットアップ
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 依存関係のインストール
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+### 環境変数の設定
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`.env`ファイルを作成して以下を記述：
 
-### `npm run build`
+```env
+VITE_PUBLIC_FOLDER=http://localhost:5000/images/
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+または`.env.example`をコピー：
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+cp .env.example .env
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 開発サーバーの起動
 
-### `npm run eject`
+```bash
+npm run dev
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ブラウザで`http://localhost:5173`にアクセス。
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 環境変数
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| 変数名 | 説明 | 例 |
+|--------|------|-----|
+| `VITE_PUBLIC_FOLDER` | バックエンドの画像フォルダURL | `http://localhost:5000/images/` |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 利用可能なコマンド
 
-## Learn More
+| コマンド | 説明 |
+|---------|------|
+| `npm run dev` | 開発サーバーを起動 |
+| `npm run build` | 本番用にビルド |
+| `npm run preview` | ビルド結果をプレビュー |
+| `npm run lint` | ESLintでコードチェック |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## プロジェクト構造
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+frontend/
+├── index.html          # エントリーHTML
+├── vite.config.js      # Vite設定
+├── .env                # 環境変数
+├── public/             # 静的ファイル
+│   └── assets/         # CSS、画像
+└── src/
+    ├── main.jsx        # エントリーポイント
+    ├── App.jsx         # ルーティング設定
+    ├── pages/          # ページコンポーネント
+    ├── components/     # 再利用可能なコンポーネント
+    └── state/          # グローバル状態管理
+```
 
-### Code Splitting
+## バックエンドとの連携
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### プロキシ設定
 
-### Analyzing the Bundle Size
+`vite.config.js`でバックエンド（localhost:5000）へのプロキシを設定：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+server: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:5000',
+      changeOrigin: true,
+    }
+  }
+}
+```
 
-### Making a Progressive Web App
+これにより、`/api/*`へのリクエストは自動的にバックエンドへ転送されます。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## CRAからの移行について
 
-### Advanced Configuration
+このプロジェクトはCreate React AppからViteへ移行されました。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 主な変更点
 
-### Deployment
+- エントリーファイル: `index.js` → `main.jsx`
+- 環境変数: `REACT_APP_*` → `VITE_*`
+- 環境変数アクセス: `process.env.*` → `import.meta.env.*`
+- 起動コマンド: `npm start` → `npm run dev`
+- デフォルトポート: 3000 → 5173
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## トラブルシューティング
 
-### `npm run build` fails to minify
+### ポートが使用中
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+# Mac/Linux
+lsof -ti:5173 | xargs kill -9
+
+# Windows
+netstat -ano | findstr :5173
+taskkill /PID <PID番号> /F
+```
+
+### 依存関係のエラー
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### バックエンドに接続できない
+
+1. バックエンドが起動しているか確認（localhost:5000）
+2. `.env`ファイルが正しく設定されているか確認
+3. `vite.config.js`のプロキシ設定を確認
+
+## ライセンス
+
+ISC

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import "./Login.css";
 import { loginCall } from '../../actionCalls';
-import { AuthContext } from '../../state/AuthContext';
+import { AuthContext } from '../../state/AuthContext.jsx';
 
 export default function Login() {
     const email = useRef();

@@ -4,7 +4,7 @@ import Share from"../Share/Share";
 import Post from '../Post/Post';
 // import{ Posts } from "../../dummyData";
 import axios from "axios";
-import { AuthContext } from '../../state/AuthContext';
+import { AuthContext } from '../../state/AuthContext.jsx';
 
 export default function TimeLine({username}) {
   const [posts, setPosts] = useState([]);

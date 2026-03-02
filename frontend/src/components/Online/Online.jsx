@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Online({ user }) {
-  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PUBLIC_FOLDER = import.meta.env.VITE_PUBLIC_FOLDER;
   return (
     <li className="rightbarFriend">
         <div className="rightbarProfileImgContainer">
