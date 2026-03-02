@@ -1,47 +1,152 @@
-REAL-SNS
+# REAL-SNS
 
-・技術スタック
+React + Express + MongoDB を使ったSNSアプリケーション
 
-フロントエンド : React, Axios
-バックエンド : Express (Node.js), Mongoose
-データベース : MongoDB
+## 概要
 
-・環境構築方法
+Real-SNSはTwitterライクなソーシャルネットワーキングサービスです。ユーザー登録、ログイン、投稿、いいね、フォロー機能を実装しています。
 
-このプロジェクトは、MongoDBを使用したExpressバックエンドとReactフロントエンドのフルスタックアプリケーションである。以下の手順でローカル環境を構築できる。
+**主な機能**
+- ユーザー認証（ログイン・新規登録）
+- テキスト・画像投稿
+- いいね機能
+- フォロー・フォロワー機能
+- タイムライン表示
+- プロフィールページ
 
-1. リポジトリをクローン
+## 技術スタック
+
+**フロントエンド**
+- React 19
+- React Router DOM
+- Axios
+- Material-UI（アイコン）
+
+**バックエンド**
+- Express (Node.js)
+- Mongoose
+- Multer（画像アップロード）
+- Helmet（セキュリティ）
+
+**データベース**
+- MongoDB
+
+## セットアップ
+
+### 前提条件
+
+- Node.js v16以上
+- npm
+- MongoDB（ローカルまたはMongoDB Atlas）
+
+### インストール手順
+
+#### 1. リポジトリのクローン
 
 ```bash
 git clone https://github.com/itsuki-ishigami/real-sns.git
+cd real-sns
 ```
 
-2. バックエンドのセットアップ
+#### 2. バックエンドのセットアップ
 
 ```bash
 cd backend
 npm install
 ```
 
-.envファイルを作成
+`backend/.env`ファイルを作成して以下を記述：
 
-MONGO_URL=<your_mongodb_connection_string>
+```env
+MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/real-sns?retryWrites=true&w=majority
+PORT=5000
+```
 
-サーバー起動
+MongoDB Atlasの接続文字列は[こちら](https://www.mongodb.com/atlas)から取得できます。
 
-npm run dev
-
-3. フロントエンドのセットアップ
+サーバーを起動：
 
 ```bash
-cd ../frontend
+npm run dev
+```
+
+#### 3. フロントエンドのセットアップ
+
+新しいターミナルを開いて：
+
+```bash
+cd frontend
 npm install
 ```
 
-.envファイルを作成
+`frontend/.env`ファイルを作成して以下を記述：
 
+```env
 REACT_APP_PUBLIC_FOLDER=http://localhost:5000/images/
+```
 
-アプリ起動
+アプリを起動：
 
+```bash
 npm start
+```
+
+ブラウザで`http://localhost:3000`にアクセス。
+
+## プロジェクト構造
+
+```
+real-sns/
+├── backend/
+│   ├── server.js
+│   ├── models/
+│   │   ├── User.js
+│   │   └── Post.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── users.js
+│   │   ├── posts.js
+│   │   └── upload.js
+│   └── public/images/
+│
+└── frontend/
+    ├── public/
+    └── src/
+        ├── index.js
+        ├── App.js
+        ├── pages/
+        ├── components/
+        └── state/
+```
+
+## トラブルシューティング
+
+**MongoDB接続エラー**
+
+`.env`ファイルの設定を確認してください。MongoDB Atlasを使用している場合は、ネットワークアクセス設定で接続元IPを許可する必要があります。
+
+**ポートが使用中**
+
+```bash
+# Mac/Linux
+lsof -ti:3000 | xargs kill -9
+
+# Windows
+netstat -ano | findstr :3000
+taskkill /PID <PID番号> /F
+```
+
+**依存関係のエラー**
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+## ライセンス
+
+ISC
+
+## 作者
+
+Itsuki Ishigami
