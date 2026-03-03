@@ -1,13 +1,20 @@
-const express = require("express");
-const app = express();
-const userRoute = require("./routes/users");
-const authRoute = require("./routes/auth");
-const postsRoute = require("./routes/posts");
-const uploadRoute = require("./routes/upload");
-const mongoose = require("mongoose");
-const path = require("path");
-require("dotenv").config();
+import express from "express";
+import userRoute from "./routes/users.js";
+import authRoute from "./routes/auth.js";
+import postsRoute from "./routes/posts.js";
+import uploadRoute from "./routes/upload.js";
+import mongoose from "mongoose";
+import path from "path";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const app = express();
 const PORT = process.env.PORT || 5000;
 
 //データベース接続

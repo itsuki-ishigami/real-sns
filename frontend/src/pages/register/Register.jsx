@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import "./Register.css";
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../../state/AuthContext';
 
 export default function Register() {
     const username = useRef();
@@ -10,6 +11,7 @@ export default function Register() {
     const passwordConfirmation = useRef();
 
     const navigate = useNavigate();
+    const { dispatch } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -32,7 +34,16 @@ export default function Register() {
             };
             //registerAPIを叩く
             await axios.post("/auth/register", user);
-            navigate("/login");
+            
+            // 登録成功後、自動的にログイン
+            const loginResponse = await axios.post("/auth/login", {
+                email: email.current.value,
+                password: password.current.value,
+            });
+            
+            // ログイン成功したらContextに保存（自動的にlocalStorageにも保存される）
+            dispatch({ type: "LOGIN_SUCCESS", payload: loginResponse.data });
+            navigate("/");  // ホームに遷移
         }catch(err){
             console.log(err);
             setError("登録に失敗しました。既に登録されているメールアドレスの可能性があります。");

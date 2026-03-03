@@ -1,5 +1,7 @@
-const router = require("express").Router();
-const User = require("../models/User");
+import express from "express";
+import User from "../models/User.js";
+
+const router = express.Router();
 
 //CRUD
 //ユーザー情報の更新
@@ -119,4 +121,4 @@ router.put("/:id/unfollow", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,7 @@
-const router = require("express").Router();
-const User = require("../models/User"); //const User = mongoose.model("User", userSchema);と同じ
+import express from "express";
+import User from "../models/User.js";
+
+const router = express.Router();
 
 //ユーザー登録
 router.post("/register", async (req, res) => {
@@ -39,4 +41,4 @@ router.post("/login", async (req, res) => {
 //     res.send("auth router")
 // });
 
-module.exports = router;
+export default router;
