@@ -29,10 +29,6 @@
     margin-bottom: 10px;
 }
 
-.loginDesc{
-    font-size: 24px;
-}
-
 .loginBox{
     height: 400px;
     padding: 20px;
@@ -74,6 +70,36 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+
+.loginButton:disabled{
+    background-color: #9a9aaa;
+    cursor: not-allowed;
+}
+
+.errorMsg{
+    color: #f44336;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.loginLinkText{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    display: block;
+}
+
+.loginLink{
+    color: #41428b;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.loginLink:hover{
+    text-decoration: underline;
 }
 
 .loginForgot{

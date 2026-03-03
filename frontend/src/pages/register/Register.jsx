@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import "./Register.css";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Register() {
     const username = useRef();
@@ -10,26 +10,34 @@ export default function Register() {
     const passwordConfirmation = useRef();
 
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
 
         //パスワードと確認用のパスワードがあっているかどうかを確認
         if(password.current.value !== passwordConfirmation.current.value) {
-            passwordConfirmation.current.setCustomValidity("パスワードが一致しません");
-        }else{
-            try{
-                const user = {
-                    username: username.current.value,
-                    email: email.current.value,
-                    password: password.current.value,
-                };
-                //registerAPIを叩く
-                await axios.post("/auth/register", user);
-                navigate("/login");
-            }catch(err){
-                console.log(err);
-            }
+            setError("パスワードが一致しません");
+            return;
+        }
+        
+        setIsLoading(true);
+        try{
+            const user = {
+                username: username.current.value,
+                email: email.current.value,
+                password: password.current.value,
+            };
+            //registerAPIを叩く
+            await axios.post("/auth/register", user);
+            navigate("/login");
+        }catch(err){
+            console.log(err);
+            setError("登録に失敗しました。既に登録されているメールアドレスの可能性があります。");
+        }finally{
+            setIsLoading(false);
         }
     };
 
@@ -38,7 +46,6 @@ export default function Register() {
         <div className="loginWrapper">
             <div className="loginLeft">
                 <h3 className="loginLogo">Real SNS</h3>
-                <span className="loginDesc">本格的なSNSを、自分の手で。</span>
             </div>
             <div className="loginRight">
                 <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
@@ -47,8 +54,13 @@ export default function Register() {
                     <input type="email" className="loginInput" placeholder="Eメール" required ref={email}/>
                     <input type="password" className="loginInput" placeholder="パスワード" required minLength="6" ref={password}/>
                     <input type="password" className="loginInput" placeholder="確認用パスワード" required minLength="6" ref={passwordConfirmation}/>
-                    <button className="loginButton" type="submit">サインアップ</button>
-                    <button className="loginRegisterButton">ログイン</button>
+                    <button className="loginButton" type="submit" disabled={isLoading}>
+                        {isLoading ? "登録中..." : "サインアップ"}
+                    </button>
+                    {error && <span className="errorMsg">{error}</span>}
+                    <span className="loginLinkText">
+                        既にアカウントをお持ちですか？ <Link to="/login" className="loginLink">ログイン</Link>
+                    </span>
                 </form>
             </div>
         </div>
