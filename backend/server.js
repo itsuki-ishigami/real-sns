@@ -34,13 +34,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/posts", postsRoute);
 app.use("/api/upload", uploadRoute);
 
-// app.get("/", (req, res) => {
-//     console.log(req.query.test)
-//     res.send("hello express");
-// });
-
-// app.get("/kanaya", (req, res) => {
-//     res.send("kanaya!");
-// });
-
 app.listen(PORT, () => console.log("サーバーが起動しました"));
